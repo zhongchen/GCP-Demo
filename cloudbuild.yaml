@@ -1,4 +1,5 @@
+# The PROJECT_ID is a cloud build env variable
 steps:
   - id: "download the repo"
-    name: gcr.io/cloud-builder/git
+    name: gcr.io/cloud-builders/git
     args: ['clone', 'https://github.com/zhongchen/GCP-Demo.git']
