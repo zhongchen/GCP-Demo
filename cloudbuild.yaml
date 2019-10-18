@@ -1,4 +1,4 @@
 steps:
   - id: "download the repo"
-    name: gcr.io/cloud-builder/git
+    name: gcr.io/$PROJECT_ID/git
     args: ['clone', 'https://github.com/zhongchen/GCP-Demo.git']
