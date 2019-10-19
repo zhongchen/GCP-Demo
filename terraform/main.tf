@@ -9,3 +9,7 @@ provider "google" {
   version = "~> 2.11"
   project = "zhong-gcp"
 }
+
+# Use this data source to get project details. For more information see API.
+# https://www.terraform.io/docs/providers/google/d/google_project.html
+data "google_project" "project" {}
