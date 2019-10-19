@@ -1,0 +1,14 @@
+steps:
+  - id: "retrieve the file"
+    name: "python:3.7"
+    dir: "scripts"
+    entrypoint: "bash"
+    args:
+      - '-c'
+      - |
+        pip install --quiet --no-cache-dir pipenv
+        cat requirements.txt
+        pip install -r requirements.txt
+        python gcs.py --bucket=zhong-gcp
+#        pipenv lock --requirements > requirements.txt
+
