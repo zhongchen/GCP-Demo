@@ -1,23 +1,28 @@
 steps:
-  - name: 'gcr.io/cloud-builders/docker'
-    entrypoint: 'bash'
-    args:
-      - '-c'
-      - |
-        docker pull gcr.io/$PROJECT_ID/demo:latest || exit 0
-  - name: 'gcr.io/cloud-builders/docker'
-    args: [
-      'build',
-      '-t', 'gcr.io/$PROJECT_ID/demo:latest',
-      '--cache-from', 'gcr.io/$PROJECT_ID/demo:latest',
-      '-f', './docker/Dockerfile',
-      '.'
-    ]
+  # This works in the local mode. The layers are cached properly, but not in the cloud build.
+  - name: gcr.io/cloud-builders/docker
+    args: ['build',
+           '-t', 'gcr.io/$PROJECT_ID/demo:latest',
+           '-f', './docker/Dockerfile',
+           '.']
+
 images: ['gcr.io/$PROJECT_ID/demo:latest']
 
-# This works in the local mode. The layers are cached properly, but not in the cloud build.
-#  - name: gcr.io/cloud-builders/docker
-#    args: ['build', '-t', 'gcr.io/$PROJECT_ID/demo', '-f', './docker/Dockerfile', '.']
+# The cache-from doesn't help for the cloud build process and it makes the local process worse as well.
+#  - name: 'gcr.io/cloud-builders/docker'
+#    entrypoint: 'bash'
+#    args:
+#      - '-c'
+#      - |
+#        docker pull gcr.io/$PROJECT_ID/demo:latest || exit 0
+#  - name: 'gcr.io/cloud-builders/docker'
+#    args: [
+#      'build',
+#      '-t', 'gcr.io/$PROJECT_ID/demo:latest',
+#      '--cache-from', 'gcr.io/$PROJECT_ID/demo:latest',
+#      '-f', './docker/Dockerfile',
+#      '.'
+#    ]
 
 # need to get the build context to work properly. It doesn't seem to be trivial.
 #  - name: gcr.io/kaniko-project/executor:latest
@@ -28,4 +33,3 @@ images: ['gcr.io/$PROJECT_ID/demo:latest']
 #      - -f=./docker/Dockerfile
 #      - --context=git://github.com/zhongchen/gcp-demo.git#refs/heads/master
 #
-#images: ['gcr.io/$PROJECT_ID/demo']
