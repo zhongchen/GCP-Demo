@@ -21,6 +21,8 @@ resource "google_cloudbuild_trigger" "build_image" {
     repo_name = local.repo
   }
 
+  # why can't just point to the dockerfile directly?
+  # it is an option on the UI. 
   included_files = ["docker/Dockerfile"]
   filename = "docker/cloudbuild.yaml"
 }
