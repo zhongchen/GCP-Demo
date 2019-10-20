@@ -21,6 +21,9 @@ resource "google_cloudbuild_trigger" "build_image" {
     repo_name = local.repo
   }
 
-  included_files = ["docker/Dockerfile"]
+  # why can't just point to the dockerfile directly?
+  # it is an option on the UI.
+  # Pipfile changes require a image rebuild.
+  included_files = ["docker/Dockerfile", "scripts/Pipfile"]
   filename = "docker/cloudbuild.yaml"
 }
