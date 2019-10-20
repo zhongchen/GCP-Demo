@@ -1,5 +1,24 @@
 # The PROJECT_ID is a cloud build env variable
 steps:
-  - id: "download the repo"
-    name: gcr.io/cloud-builders/git
-    args: ['clone', 'https://github.com/zhongchen/GCP-Demo.git']
+- id: 'Terraform init'
+  name: 'hashicorp/terraform:0.12.12'
+  args: ['init', '-input=false']
+  dir: 'terraform'
+  waitFor: ['-']
+
+# Not needed for now
+#- id: 'Terraform select workspace'
+#  name: 'hashicorp/terraform:0.12.12'
+#  args: ['workspace', 'select', 'prod']
+#  dir: 'terraform'
+#  waitFor: ['Terraform init']
+
+- id: 'Terraform apply'
+  name: 'hashicorp/terraform:0.12.12'
+  args: [
+    'apply',
+    '-input=false',
+    '-auto-approve'
+  ]
+  dir: 'terraform'
+  waitFor: ['Terraform init']
