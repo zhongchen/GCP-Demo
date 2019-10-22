@@ -2,23 +2,14 @@
 steps:
 - id: 'Terraform init'
   name: 'hashicorp/terraform:0.12.12'
-  args: ['init', '-input=false']
   dir: 'terraform'
+  entrypoint: 'sh'
+  args:
+    - '-c'
+    - |
+      terraform init -input=false
+      terraform workspace select dev || terraform workspace new dev
+      terraform apply -input=false \
+        -auto-approve
   waitFor: ['-']
 
-# Not needed for now
-#- id: 'Terraform select workspace'
-#  name: 'hashicorp/terraform:0.12.12'
-#  args: ['workspace', 'select', 'prod']
-#  dir: 'terraform'
-#  waitFor: ['Terraform init']
-
-- id: 'Terraform apply'
-  name: 'hashicorp/terraform:0.12.12'
-  args: [
-    'apply',
-    '-input=false',
-    '-auto-approve'
-  ]
-  dir: 'terraform'
-  waitFor: ['Terraform init']
