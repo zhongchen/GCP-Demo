@@ -1,0 +1,30 @@
+[
+  {
+    "mode": "REQUIRED",
+    "name": "name",
+    "type": "STRING"
+  },
+  {
+    "name": "score",
+    "type": "FLOAT"
+  },
+  {
+    "mode": "REPEATED",
+    "name": "values",
+    "type": "INT64"
+  },
+  {
+    "name": "attr",
+    "type": "RECORD",
+    "fields": [
+      {
+        "name": "color",
+        "type": "STRING"
+      },
+      {
+        "name": "level",
+        "type": "INT64"
+      }
+    ]
+  }
+]
