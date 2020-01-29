@@ -1,7 +1,7 @@
 # The PROJECT_ID is a cloud build env variable
 steps:
 - id: 'Terraform init'
-  name: 'hashicorp/terraform:0.12.12'
+  name: 'hashicorp/terraform:0.12.18'
   dir: 'terraform'
   entrypoint: 'sh'
   args:
