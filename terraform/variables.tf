@@ -1,4 +1,4 @@
 variable "project_id" {
-  type = "string"
+  type = string
   default = "zhong-gcp"
 }
