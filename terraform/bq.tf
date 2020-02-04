@@ -14,5 +14,5 @@ resource "google_bigquery_table" "data" {
     env = "dev"
   }
 
-  schema = file("/workspace/terraform/schema/sample.json")
+  schema = file("schema/sample.json")
 }
