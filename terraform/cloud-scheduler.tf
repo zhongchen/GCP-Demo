@@ -1,11 +1,11 @@
 resource "google_cloud_scheduler_job" "scheduler" {
   name = "scheduler"
   schedule = "0 0 * * *"
-  region = "us-central"
+  region = "us-central1"
 
   http_target {
     http_method = "POST"
-    uri = "https://google.com"
+    uri = "https://dataflow.googleapis.com/v1b3/projects/${var.project_id}/locations/${var.region}/templates:launch?gcsPath=gs://zhong-gcp/templates/demo"
     oauth_token {
       service_account_email = google_service_account.cloud-scheduler-demo.email
     }
