@@ -1,11 +1,12 @@
 steps:
   - id: "get build number"
     name: gcr.io/cloud-builders/git
+    dir: 'cloudbuild-dataflow-demo/streaming'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        git rev-parse --short HEAD > cloudbuild-dataflow-demo/streaming/_BUILDNUMBER
+        git rev-parse --short HEAD > _BUILDNUMBER
     waitFor: ['-']
 
   - id: "build and submit the dataflow job"
