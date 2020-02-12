@@ -48,7 +48,7 @@ class DummyTransformation extends DoFn<PubsubMessage, PubsubMessage> {
 
     @ProcessElement
     public void process(ProcessContext context) {
-        LOG.info(context.element().toString());
+        LOG.info(String.format("Received message %s", new String(context.element().getPayload())));
         PubsubMessage msg = context.element();
         context.output(msg);
     }

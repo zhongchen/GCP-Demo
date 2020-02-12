@@ -1,18 +1,12 @@
 steps:
-  - id: "clone the repo"
-    name: gcr.io/cloud-builders/git
-    args: ['clone', '--depth', '1', 'https://github.com/zhongchen/cloudbuild-dataflow-demo.git']
-    waitFor: ['-']
-
   - id: "get build number"
     name: gcr.io/cloud-builders/git
-    dir: 'cloudbuild-dataflow-demo/streaming'
     entrypoint: 'bash'
     args:
       - '-c'
       - |
-        git rev-parse --short HEAD > _BUILDNUMBER
-    waitFor: ['clone the repo']
+        git rev-parse --short HEAD > cloudbuild-dataflow-demo/streaming/_BUILDNUMBER
+    waitFor: ['-']
 
   - id: "build and submit the dataflow job"
     name: maven:3.6.0-jdk-11-slim
