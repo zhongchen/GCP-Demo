@@ -1,0 +1,37 @@
+steps:
+  - id: "clone the repo"
+    name: gcr.io/cloud-builders/git
+    args: ['clone', '--depth', '1', 'https://github.com/zhongchen/cloudbuild-dataflow-demo.git']
+    waitFor: ['-']
+
+  - id: "get build number"
+    name: gcr.io/cloud-builders/git
+    dir: 'cloudbuild-dataflow-demo/streaming'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        git rev-parse --short HEAD > _BUILDNUMBER
+    waitFor: ['clone the repo']
+
+  - id: "build and submit the dataflow job"
+    name: maven:3.6.0-jdk-11-slim
+    dir: 'cloudbuild-dataflow-demo/streaming'
+    entrypoint: 'bash'
+    args:
+      - '-c'
+      - |
+        buildNumber=$(cat _BUILDNUMBER)
+        echo "Build Number is ${buildNumber}"
+        ./submit.sh DataflowDemoPipeline \
+          --project=zhong-gcp \
+          --stagingLocation=gs://zhong-gcp/stage/ \
+          --gcpTempLocation=gs://zhong-gcp/temp/ \
+          --runner=DataflowRunner \
+          --autoscalingAlgorithm=THROUGHPUT_BASED \
+          --maxNumWorkers=10 \
+          --jobName=demo \
+          --buildNumber=${buildNumber} \
+          --subscription=dataflow_demo_subscription \
+          --region=us-west1
+    waitFor: ['get build number']
