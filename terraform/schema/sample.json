@@ -11,7 +11,7 @@
   {
     "mode": "REPEATED",
     "name": "values",
-    "type": "INT64"
+    "type": "INTEGER"
   },
   {
     "name": "attr",
@@ -23,7 +23,7 @@
       },
       {
         "name": "level",
-        "type": "INT64"
+        "type": "INTEGER"
       }
     ]
   }
