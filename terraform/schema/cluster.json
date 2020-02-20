@@ -1,0 +1,34 @@
+[
+  {
+    "mode": "REQUIRED",
+    "name": "message",
+    "type": "STRING"
+  },
+  {
+    "mode": "REPEATED",
+    "name": "attributes",
+    "type": "RECORD",
+    "fields": [
+      {
+        "name": "key",
+        "type": "STRING"
+      },
+      {
+        "name": "value",
+        "type": "STRING"
+      }
+    ]
+  },
+  {
+    "name": "valid",
+    "type": "BOOLEAN"
+  },
+  {
+    "name": "source",
+    "type": "STRING"
+  },
+  {
+    "name": "inserted_at",
+    "type": "TIMESTAMP"
+  }
+]
