@@ -3,7 +3,7 @@
 set -e
 
 # enable this for debugging purpose
-set -x
+#set -x
 
 echo "start"
 
@@ -14,3 +14,14 @@ else
 fi
 
 echo "end"
+
+TABLES=(dl.a dl.b dl.c)
+
+echo "${TABLES[@]}"
+
+for t in "${TABLES[@]}";
+do
+  IFS='.'
+  read -ra table <<< "$t"
+  echo "${table[1]}"
+done
