@@ -1,0 +1,12 @@
+steps:
+  - id: 'Terraform init'
+    name: 'hashicorp/terraform:0.12.20'
+    dir: 'cloudfunctions/terraform'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform init -input=false
+        terraform workspace select gcs-cloudfunction-demo || terraform workspace new gcs-cloudfunction-demo
+        terraform apply -input=false -auto-approve
+    waitFor: ['-']
