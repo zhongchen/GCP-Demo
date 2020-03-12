@@ -1,0 +1,12 @@
+steps:
+  - id: 'Terraform init'
+    name: 'hashicorp/terraform:0.12.20'
+    dir: 'terraform'
+    entrypoint: 'sh'
+    args:
+      - '-c'
+      - |
+        terraform init -input=false
+        terraform workspace select composer-demo || terraform workspace new composer-demo
+        terraform apply -input=false -auto-approve
+    waitFor: ['-']
