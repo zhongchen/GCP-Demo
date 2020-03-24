@@ -48,7 +48,7 @@ def load_schema(filename):
         json.dump(schemas, output, indent=4)
 
 
-for f in os.listdir("schema"):
+for f in os.listdir("../schema"):
     if f.endswith(".csv"):
         load_schema("schema/{}".format(f))
 

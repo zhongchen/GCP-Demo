@@ -19,7 +19,7 @@ public class App
             // once, and can be reused for multiple requests.
             BigQuery bigquery = BigQueryOptions.getDefaultInstance().getService();
 
-            String sourceTable = "`zhong-gcp.TestData.Airport`";
+            String sourceTable = "`db.cellbank_hierarchy`";
             String query = "select * from " + sourceTable + " limit 10";
 
             QueryJobConfiguration queryConfig = QueryJobConfiguration.newBuilder(query).build();
@@ -28,7 +28,7 @@ public class App
 
             results.iterateAll().forEach(row -> row.forEach(val -> System.out.printf("%s,", val.toString())));
 
-            System.out.println("Query clustered table performed successfully.");
+            System.out.println("Query table performed successfully.");
         } catch (BigQueryException | InterruptedException e) {
             System.out.println("Query not performed \n" + e.toString());
         }
