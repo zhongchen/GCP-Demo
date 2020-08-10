@@ -1,0 +1,13 @@
+syntax = "proto3";
+
+option java_package = "com.google.pso";
+// Causes top-level messages, enums, and services to be defined at the package level
+option java_multiple_files = true;
+
+message Document {
+  string doc_name = 1;
+  string doc_path = 2;
+  string doc_hash = 3;
+  int32 num_pages = 4;
+}
+

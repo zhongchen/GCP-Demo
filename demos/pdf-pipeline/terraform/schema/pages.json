@@ -1,0 +1,27 @@
+[
+  {
+    "mode": "REQUIRED",
+    "name": "file_id",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "page_index",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "page_md5",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "status",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "inserted_at",
+    "type": "TIMESTAMP"
+  }
+]

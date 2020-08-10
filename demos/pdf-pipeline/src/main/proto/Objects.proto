@@ -1,0 +1,21 @@
+syntax = "proto3";
+
+option java_package = "com.google.pso";
+option java_outer_classname = "Objects";
+// Causes top-level messages, enums, and services to be defined at the package level
+option java_multiple_files = true;
+
+message Point {
+  float x = 1;
+  float y = 2;
+}
+
+enum BoxType {
+  TABLE = 0;
+  IMAGE = 1;
+  TEXT = 2;
+}
+
+message Box {
+  BoxType type = 1;
+}

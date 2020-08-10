@@ -1,0 +1,32 @@
+[
+  {
+    "mode": "REQUIRED",
+    "name": "file_md5",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "file_path",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "filename",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "num_pages",
+    "type": "INTEGER"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "status",
+    "type": "STRING"
+  },
+  {
+    "mode": "REQUIRED",
+    "name": "inserted_at",
+    "type": "TIMESTAMP"
+  }
+]
