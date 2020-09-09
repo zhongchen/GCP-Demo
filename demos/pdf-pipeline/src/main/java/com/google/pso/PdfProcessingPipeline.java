@@ -1,8 +1,11 @@
 package com.google.pso;
 
+import com.google.api.gax.longrunning.OperationFuture;
 import com.google.api.services.bigquery.model.TableReference;
 import com.google.api.services.bigquery.model.TableRow;
 import com.google.cloud.automl.v1.AutoMlClient;
+import com.google.cloud.automl.v1.ModelName;
+import com.google.protobuf.Empty;
 import com.google.pso.transformations.PdfTransformation;
 import org.apache.beam.sdk.Pipeline;
 import org.apache.beam.sdk.coders.CoderRegistry;
@@ -13,6 +16,7 @@ import org.apache.beam.sdk.options.PipelineOptionsFactory;
 import org.apache.beam.sdk.transforms.MapElements;
 import org.apache.beam.sdk.values.PCollectionTuple;
 import org.apache.beam.sdk.values.TypeDescriptor;
+import com.google.cloud.automl.v1.*;
 
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
@@ -21,6 +25,10 @@ import java.util.TimeZone;
 
 public class PdfProcessingPipeline {
     public static void main(String[] args) {
+        String projectId = "zhong-gcp";
+        String modelId = "ICN6041757021001220096";
+
+        System.out.println("start the pipeline");
 
         // Register Options class for our pipeline with the factory
         PipelineOptionsFactory.register(PdfProcessingPipelineOptions.class);
@@ -30,7 +38,9 @@ public class PdfProcessingPipeline {
                 .as(PdfProcessingPipelineOptions.class);
 
         final String GCP_PROJECT_NAME = options.getProject();
-        final String PUBSUB_SUBSCRIPTION = "projects/" + GCP_PROJECT_NAME + "/subscriptions/"
+        final String input_pubsub_subscription = "projects/" + GCP_PROJECT_NAME + "/subscriptions/"
+                + options.getSubscription();
+        final String out_pubsub_subscription = "projects/" + GCP_PROJECT_NAME + "/subscriptions/"
                 + options.getSubscription();
 
 
@@ -51,7 +61,7 @@ public class PdfProcessingPipeline {
 
         PCollectionTuple documentsAndPages = p.apply("Process Newly Uploaded PDF file",
                 PubsubIO.readMessagesWithAttributes()
-                        .fromSubscription(PUBSUB_SUBSCRIPTION)).
+                        .fromSubscription(input_pubsub_subscription)).
                 apply("Process a single document",
                         new PdfTransformation("zhong-gcp", "images"));
 
