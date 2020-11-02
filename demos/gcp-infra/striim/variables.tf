@@ -6,8 +6,8 @@ variable "env" {
 
 variable "striim-node-count" {
   description = "number of the striim nodes"
-  type        = number
-  default     = 1
+  type        = string
+  default     = "1"
 }
 
 variable "striim-node-type" {
@@ -32,4 +32,17 @@ variable "striim-region" {
   description = "gcp region for striim vpc"
   type        = string
   default     = "us-central1"
+}
+
+variable "cloud_sql_version" {
+  type    = string
+  default = "POSTGRES_11"
+}
+
+variable "folder_id" {
+  type = string
+}
+
+variable "billing_account" {
+  type = string
 }
